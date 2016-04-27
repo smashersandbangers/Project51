@@ -88,19 +88,19 @@ public class LoginServlet extends HttpServlet {
 					PasswordService pws = new PasswordService();
 					String encryptedPass = pws.encrypt(password);
 					
-					//create a user helper class to make database calls, and call authenticate user method
-					CustomerHelper uh = new CustomerHelper();
-					Customer customer = uh.authenticateCustomer(username, encryptedPass);
+					//create a user helper class to make database calls, and call authenticate customermethod
+					CustomerHelper ch = new CustomerHelper();
+					Customer customer = ch.authenticateCustomer(username, encryptedPass);
 
 					//we've found a user that matches the credentials
 					if(customer != null){
-						//invalidate current session, then get new session for our user (combats: session hijacking)
+						//invalidate current session, then get new session for our customer (combats: session hijacking)
 						session.invalidate();
 						session=request.getSession(true);
 						session.setAttribute("customer", customer);
 						url="index.jsp";
 					}
-					// user doesn't exist, redirect to previous page and show error
+					// user doesn't exist, redirect to registration page 
 					else{
 						String errorMessage = "Error: Unrecognized Username or Password<br>Login attempts remaining: "+(3-(loginAttempts));
 						request.setAttribute("errorMessage", errorMessage);

@@ -11,7 +11,7 @@ import model.Customer;
 
 public class CustomerHelper {
 	
-	private PreparedStatement  authenticateUserStatement;
+	private PreparedStatement  authenticateCustomerStatement;
 	
 	
 	public CustomerHelper(){
@@ -20,11 +20,11 @@ public class CustomerHelper {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn =DriverManager.getConnection("jdbc:mysql://localhost:3306/securelogin", "root","password");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Cricket_Store_Databse","root","password");
 			
 			//create the preparedstatement 
 			
-			authenticateUserStatement = conn.prepareStatement("select * from Customer where username=? and password=?");
+			authenticateCustomerStatement = conn.prepareStatement("select * from Customer where `username`=? and `password`=?");
 		} catch (Exception e) {
 			System.out.println(e.getClass().getName() +":" + e.getMessage());
 		
@@ -44,10 +44,10 @@ public class CustomerHelper {
 			try{
 			//add parameters to the ?'s in the prepared statement to execute 
 			
-			authenticateUserStatement.setString(1,username);
-			authenticateUserStatement.setString(2,password);
+			authenticateCustomerStatement.setString(1,username);
+			authenticateCustomerStatement.setString(2,password);
 			
-			ResultSet rs = authenticateUserStatement.executeQuery();
+			ResultSet rs = authenticateCustomerStatement.executeQuery();
 			
 			if(rs.next()) {
 				customer= new Customer (rs.getInt("customerId"),
