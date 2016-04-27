@@ -19,6 +19,7 @@
 		<input type="submit" value="Login"><br>
 		${errorMessage}
 	</form>
+	<p>PLM Test</p>
 </div>
 
 </body>
